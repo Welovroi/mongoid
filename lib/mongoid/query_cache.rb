@@ -175,16 +175,15 @@ module Mongoid
     module Base
 
       def alias_query_cache_clear(*method_names)
-        method_names.each do |method_name|
-          class_eval <<-CODE, __FILE__, __LINE__ + 1
-              def #{method_name}_with_clear_cache(*args)
-                QueryCache.clear_cache
-                #{method_name}_without_clear_cache(*args)
-              end
-            CODE
-
-          alias_method_chain method_name, :clear_cache
+        mod = Module.new do
+          method_names.each do |method_name|
+            define_method(method_name) do |*args|
+              QueryCache.clear_cache
+              super(*args)
+            end
+          end
         end
+        prepend mod
       end
     end
 
