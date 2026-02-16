@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = "mongoid"
 
   s.add_dependency("activemodel", [">= 4.0", "< 6.0"])
+  s.add_dependency("activemodel-serializers-xml", ["~> 1.0"])
   s.add_dependency("tzinfo", [">= 0.3.37"])
   s.add_dependency("mongo", ['>=2.5.1', '<3.0.0'])
   s.add_dependency("origin", ["~> 2.3"])
